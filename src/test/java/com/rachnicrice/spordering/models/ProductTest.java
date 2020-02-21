@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
+    // This test file is nicer than your other tests! I like this one!
     Product product;
 
     @BeforeEach

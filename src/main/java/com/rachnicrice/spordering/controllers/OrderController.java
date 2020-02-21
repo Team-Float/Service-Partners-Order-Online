@@ -49,16 +49,10 @@ public class OrderController {
         if (loggedInUser.getOrders().size() > 0) {
             List<Order> userOrders = loggedInUser.getOrders();
             for (Order order : userOrders) {
-                if (order.getSubmitted()==false) {
-                    Order unsubmittedOrder = order;
-                    List<LineItem> lineItems = unsubmittedOrder.getItemsInThisOrder();
-                    List<Product> cartProducts = new LinkedList<>();
-                    for (LineItem item : lineItems) {
-                        Product cartProduct = item.getProduct();
-                        cartProducts.add(cartProduct);
-                    }
+                if (!order.getSubmitted()) {
+                    List<LineItem> lineItems = order.getItemsInThisOrder();
                     model.addAttribute("dataList", lineItems);
-                    model.addAttribute("order", unsubmittedOrder.getOrder_id());
+                    model.addAttribute("order", order.getOrder_id());
                 }
             }
         } else {
@@ -70,6 +64,7 @@ public class OrderController {
     }
 
     // update to match route in form
+    // The fact that this is a DeleteMapping should be enough that you don't need the /delete/ in the URL.
     @DeleteMapping("/mycart/delete/{id}")
     public RedirectView deleteLineItem(@PathVariable long id, Principal p) {
         System.out.println("MADE INTO DELETE MAPPING"+ id);

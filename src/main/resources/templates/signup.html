@@ -19,6 +19,7 @@
                 <label>Password <input type="password" class="fadeIn third" name="password" placeholder="password" required minlength="6" maxlength="20"> </label>
                 <label>Email <input type="text" class="fadeIn fourth" name="email" placeholder="example@example.com" required minlength="6" maxlength="40"> </label>
                 <label>Phone Number <input type="text" class="fadeIn fourth" name="phone" placeholder="253-333-3333"> </label>
+                <!-- Putting minimum length requirements on a first and last name is dangerous! There are people whose real names are a single character (particularly in other character systems), and you're going to force them to lie here. See https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/ -->
                 <label>First Name <input type="text" class="fadeIn fourth" name="firstName" placeholder="First Name" required minlength="2" maxlength="20"> </label>
                 <label>Last Name <input type="text" class="fadeIn fourth" name="lastName" placeholder="Last Name" required minlength="2" maxlength="20"> </label>
                 <label>Business Name <input type="text" class="fadeIn fourth" name="businessName" placeholder="Business Name" required minlength="2" maxlength="20"> </label>

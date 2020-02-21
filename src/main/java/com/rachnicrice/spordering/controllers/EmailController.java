@@ -44,10 +44,13 @@ public class EmailController {
         try {
             helper = new MimeMessageHelper(message, true);
             //Set who the email will be sent to
+            // I wish this came from an environment variable instead of being hardcoded!
+            // Or even from the DB, e.g. grab the admin user and find their email address.
             helper.setTo("Rachnicrice@gmail.com");
             //Set the subject of the email
             helper.setSubject("Customer: " + customerID);
             //Set the email body
+            // Next level would be to include a link to view their order online.
             helper.setText("New online order from " + customerID);
 
             //Create the excel from the order data

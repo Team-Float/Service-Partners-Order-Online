@@ -75,9 +75,9 @@ public class ProductController {
 
         // Initialize as as true (case that does not have any unsubmitted orders), set to false if one is found in the loop
         boolean onlySubmittedOrders = true;
-        if (userOrders.size() > 0) {
+        if (userOrders != null && userOrders.size() > 0) {
             for (Order order : userOrders) {
-                if (order.getSubmitted()==false) {
+                if (!order.getSubmitted()) {
                     onlySubmittedOrders = false;
                 }
             }
@@ -94,12 +94,11 @@ public class ProductController {
             lineItemRepository.save(cartItem);
         } else {
             for (Order order : userOrders) {
-                if (order.getSubmitted()==false) {
-                    Order unsubmittedOrder = order;
-                    List<LineItem> lineItems = unsubmittedOrder.getItemsInThisOrder();
+                if (!order.getSubmitted()) {
+                    List<LineItem> lineItems = order.getItemsInThisOrder();
 
                     if (lineItems.isEmpty()) {
-                        LineItem cartItem = new LineItem(unsubmittedOrder, productRepository.getOne(item_id), quantity);// create new cart item with order, product, and quantity
+                        LineItem cartItem = new LineItem(order, productRepository.getOne(item_id), quantity);// create new cart item with order, product, and quantity
                         lineItemRepository.save(cartItem);
                     } else {
                         boolean alreadyInCart = false;
@@ -113,7 +112,7 @@ public class ProductController {
                             }
                         }
                         if (!alreadyInCart) {
-                            LineItem cartItem = new LineItem(unsubmittedOrder, productRepository.getOne(item_id), quantity);// create new cart item with order, product, and quantity
+                            LineItem cartItem = new LineItem(order, productRepository.getOne(item_id), quantity);// create new cart item with order, product, and quantity
                             lineItemRepository.save(cartItem);
                             System.out.println("made it to make new item");
                         }
@@ -142,7 +141,7 @@ public class ProductController {
         // iterating through each item in LineItem and comparing the foreign key with the id and deleting items in LineItem prior to deleting product.
         if(applicationUserRepository.findByUsername(p.getName()).getAdmin()) {
             for (LineItem item : lineItemRepository.findAll()) {
-                if (item.getProduct().getId() == id) {
+                if (item.getProduct().getId().equals(id)) {
                     lineItemRepository.deleteById(item.getId());
                 }
             }
@@ -158,6 +157,9 @@ public class ProductController {
 
     }
 
+    // I wish this were a POST request instead of GET, but otherwise, you managed to avoid the issues
+    // that I was afraid of here: you make sure you're not duplicating data, and you didn't commit
+    // your admin username/password.
     @GetMapping("/populateDatabase")
     public RedirectView populateDatabase(Principal p) {
         if (p != null) {

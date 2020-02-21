@@ -16,6 +16,7 @@ Overview: This web application is a prototype online store for the customers of 
 1. Clone the repo onto your local machine using the ```git clone``` command
 2. Create a database on your machine called 'spordering'
 3. FOR WINDOWS USERS: Update the application.properties file to include your username and password for the database
+<!-- Missing directions to include email username/password for the email sending functionality -->
 4. Start the server with the ```./gradlew bootRun``` command
 5. In your browser visit localhost:8080 to see the running application
 
