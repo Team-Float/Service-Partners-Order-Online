@@ -21,6 +21,9 @@ public class LineItemTest {
 
     @BeforeEach
     public void setUp() {
+        // Actually pulling this info from the DB is way farther than you want to go here!
+        // Much better would be to create an order and a product manually here.
+        // You've taken this from a unit test to an integration test by incorporating the DB.
         order = orepo.getOne(1L);
         prod = prepo.getOne(1L);
         item = new LineItem(order, prod, 12);

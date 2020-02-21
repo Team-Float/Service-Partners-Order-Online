@@ -8,12 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+// You don't need the repo, which means this doesn't need to be a SpringBootTest.
 public class ApplicationUserTest {
     ApplicationUser user;
-
-    @Autowired
-    ApplicationUserRepository repo;
 
     @BeforeEach
     public void setUp () {
